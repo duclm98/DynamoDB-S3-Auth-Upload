@@ -1,8 +1,7 @@
 const package = require('../../config/packages');
-const middleware = require('../../config/middleware');
-const method = require('../../config/methods');
-const router = package.express.Router();
 const controller = require('./controllers');
+
+const router = package.express.Router();
 
 router.post('/register', controller.register); //username, password
 router.post('/login', controller.login); //username, password

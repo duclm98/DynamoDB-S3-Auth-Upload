@@ -7,7 +7,7 @@ let opts = {};
 opts.jwtFromRequest = package.ExtractJwt.fromAuthHeaderAsBearerToken();
 opts.secretOrKey = process.env.ACCESS_TOKEN_SECRET || 'access-token-secret-example';
 package.passport.use('jwt', new package.JwtStrategy(opts, async function (jwt_payload, done) {
-  const user = await model.modelUser.getUser(jwt_payload.user.username);
+  const user = await model.modelUser.getUser(jwt_payload.payload.username);
   if (!user) {
     return done(null, false);
   }
