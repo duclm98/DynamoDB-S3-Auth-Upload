@@ -1,0 +1,117 @@
+#!/usr/bin/env node
+const dotenv = require('dotenv'); //Cấu hình cho phép sử dụng biến môi trường
+if (process.env && process.env.NODE_ENV === "development.test") {
+  console.log('ENVIRONMENT: Testing development');
+  console.log('ENV FILE: .env.development.test');
+  dotenv.config({
+    path: 'env/.env.development.test'
+  });
+} else if (process.env && process.env.NODE_ENV === "development.main") {
+  console.log('ENVIRONMENT: Main development');
+  console.log('ENV FILE: .env.development.main');
+  dotenv.config({
+    path: 'env/.env.development.main'
+  });
+} else if (process.env && process.env.NODE_ENV === "production.test") {
+  console.log('ENVIRONMENT: Testing production');
+  console.log('ENV FILE: .env.production.test');
+  dotenv.config({
+    path: 'env/.env.production.test'
+  });
+} else {
+  console.log('ENVIRONMENT: Main production');
+  console.log('ENV FILE: .env.production.main');
+  dotenv.config({
+    path: 'env/.env.production.main'
+  });
+}
+console.log("VERSION: 0.0.1");
+console.log("PORT: " + process.env.PORT);
+/**
+ * Module dependencies.
+ */
+
+var app = require('../app');
+var debug = require('debug')('sale-backend:server');
+var http = require('http');
+
+/**
+ * Get port from environment and store in Express.
+ */
+
+var port = normalizePort(process.env.PORT || '3000');
+app.set('port', port);
+
+/**
+ * Create HTTP server.
+ */
+
+var server = http.createServer(app);
+
+/**
+ * Listen on provided port, on all network interfaces.
+ */
+
+server.listen(port);
+server.on('error', onError);
+server.on('listening', onListening);
+
+/**
+ * Normalize a port into a number, string, or false.
+ */
+
+function normalizePort(val) {
+  var port = parseInt(val, 10);
+
+  if (isNaN(port)) {
+    // named pipe
+    return val;
+  }
+
+  if (port >= 0) {
+    // port number
+    return port;
+  }
+
+  return false;
+}
+
+/**
+ * Event listener for HTTP server "error" event.
+ */
+
+function onError(error) {
+  if (error.syscall !== 'listen') {
+    throw error;
+  }
+
+  var bind = typeof port === 'string'
+    ? 'Pipe ' + port
+    : 'Port ' + port;
+
+  // handle specific listen errors with friendly messages
+  switch (error.code) {
+    case 'EACCES':
+      console.error(bind + ' requires elevated privileges');
+      process.exit(1);
+      break;
+    case 'EADDRINUSE':
+      console.error(bind + ' is already in use');
+      process.exit(1);
+      break;
+    default:
+      throw error;
+  }
+}
+
+/**
+ * Event listener for HTTP server "listening" event.
+ */
+
+function onListening() {
+  var addr = server.address();
+  var bind = typeof addr === 'string'
+    ? 'pipe ' + addr
+    : 'port ' + addr.port;
+  debug('Listening on ' + bind);
+}
