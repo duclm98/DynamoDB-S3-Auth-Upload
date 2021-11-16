@@ -9,7 +9,7 @@
     "start": "cross-env NODE_ENV=development.test nodemon ./bin/www"
   },
   "dependencies": {
-    "aws-sdk": "^2.618.0",
+    "aws-sdk": "^2.814.0",
     "bcrypt": "^3.0.8",
     "body-parser": "^1.19.0",
     "cookie-parser": "~1.4.4",
